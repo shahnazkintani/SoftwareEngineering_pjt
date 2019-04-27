@@ -68,6 +68,7 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "MAP"))
         self.PB_Load.setText(_translate("Dialog", "Load Data"))
+        self.PB_Load.clicked.connect(self.PB_Load)
         self.PB_Info.setText(_translate("Dialog", "Data Info"))
         self.PB_BLSetting.setText(_translate("Dialog", "BL Setting"))
         self.PB_All.setText(_translate("Dialog", "Plot All"))
@@ -81,8 +82,19 @@ class Ui_Dialog(object):
         self.ComboB_TID.setItemText(1, _translate("Dialog", "2"))
         self.ComboB_TID.setItemText(2, _translate("Dialog", "3"))
         self.ComboB_TID.setItemText(3, _translate("Dialog", "..."))
+    
+    def PB_Load(self):
+        # read data from csv file (Ask for file location)
+        print("Reading Data From File...")
+        data_name = pd.read_csv("C:\\Users\\AyG\\Desktop\\Git\\SoftwareEngineering_pjt\\data\\25_car.csv")
+        print("Framing Data...")
+        dataframed_data = pd.DataFrame(data_name)
 
-
+        display_Data_Info(data_name)
+        specify_map_attr()
+        m = creat_map(DEF_LON,DEF_LAT)
+        print("Basic Layer Creation successful!")
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
